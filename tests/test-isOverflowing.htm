@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html><head>
+
+<title>Paginator Test</title>
+
+<!--lib-->
+<script src='https://code.jquery.com/jquery-2.1.3.js'></script>
+<!--/lib-->
+
+<!--source-->
+<script src='../scripts/seeka/detectOverflow.js' ></script>
+<!--/source-->
+
+<style>
+.test {
+	margin:1em;
+	padding:1em;
+	border:1em solid black;
+	
+	width:5em;
+	display:block;
+}
+
+.control {
+	width:40em;
+}
+
+.uno {
+	overflow-y:scroll;
+	height:2em;
+}
+
+.dos {
+	overflow-y:hidden;
+	height:3em;
+	line-height:1.2;
+}
+
+.tres {
+	overflow-y:hidden;
+	overflow-x:auto;
+	white-space:nowrap;
+	height:1em;
+}
+
+</style>
+
+</head><body>
+
+<div class='test control'></div>
+
+<div class='test uno'></div>
+
+<div class='test dos'></div>
+
+<div class='test tres'></div>
+
+<script>
+	var content = "blah blah blah blah blah blah"
+	
+	$(".test").each(function (index, element) {
+		$(element).html(content)
+		
+		var cs = getComputedStyle(element)
+		
+		
+		function stripPx(string) {
+			return parseInt(string, 10)
+		}
+		
+		function scrollbarWidth() {
+			var cs = getComputedStyle(element)
+			return element.offsetWidth - element.clientWidth - stripPx(cs['border-left-width']) - stripPx(cs['border-right-width'])
+		}
+		
+		var descriptor = {
+			scrollWidth: element.scrollWidth
+		,	scrollHeight:element.scrollHeight
+		//,   scrollbarWidth:scrollbarWidth()
+		,   offsetWidth: element.offsetWidth
+		,   offsetHeight: element.offsetHeight
+		,	jqWidth: $(element).width()
+		,	jqHeight: $(element).height()
+		,   cssHeight: parseInt($(element).css('height'), 10)
+		,   cssWidth: parseInt($(element).css('width'), 10)
+		,   clientWidth: element.clientWidth
+		,   clientHeight: element.clientHeight
+		,   innerHeight: $(element).innerHeight()
+		,   innerWidth: $(element).innerWidth()
+		}
+		
+		console.log(element.outerHTML)
+		console.log(descriptor)
+		
+		var of = detectOverflow(element)
+		console.log(of.width())
+		console.log(of.height())
+		
+		if (of.height()) {
+			$(element).css('border-left','1em solid red')
+		}
+		if (of.width()) {
+			$(element).css('border-bottom-color', 'red')
+		}
+		
+		element.scrollTop = 0;
+		element.scrollLeft = 0;
+		
+		$(element).click(function(evt) {
+			$(element).animate({scrollTop: '+=' + 100, scrollLeft: '+=' + 100}, 600)
+		})
+	})
+	
+</script>
+
+</body></html>
