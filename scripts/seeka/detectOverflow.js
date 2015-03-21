@@ -1,22 +1,12 @@
 /**
-Detects whether an element is overflowing using DOM attributes.
+Provides detection for whether an element is overflowing.  
 
-NOTES:  
+An element is considered overflowing if a scroll is possible on the target axis.
 
-This implementation requires jQuery for visible content width.
-element.client{Width|Height} can be used in most cases, but causes improper detection
-in some cases, such as detecting height improperly with `white-space:nowrap`.
-
-Another issue, is that browsers render scrollHeight differently.  
-Gecko does not include padding-bottom in scroll height, but Webkit does.
-This creates situations in Firefox where the content overflows to padding,
-but an oveflow is not detected, because firefox cannot scroll.
-Because scroll is not allowed, this is technically correct.
-Separate methods to detectOverflow.{contentHeight()|contentWidth()} could
-use css height to detect if the scroll height has extended beyond the content area
-
-A better detection method might simply involve testing to see if a scroll is possible
-by incrementing the scroll{Top|Left} property and then decrementing.
+NOTES:
+Because of the browser inconsistency regarding in how scroll content is rendered,
+the content can overflow into padding area, but without the elment being unscrollable.
+TODO Add methods content{Width|Height}() to detect these scenarios for responsive design.
 
 */
 function detectOverflow(element) {
@@ -24,10 +14,26 @@ function detectOverflow(element) {
 	
 	return {
 		width : function() {
-			return element.scrollWidth > $(element).innerWidth() //element.clientWidth
+			if (element.scrollLeft > 0) 
+				return true
+			
+			element.scrollLeft += 1
+			if (element.scrollLeft == 0)
+				return false
+			
+			element.scrollLeft -= 1
+			return true
 		}
 	,	height : function() {
-			return element.scrollHeight > $(element).innerHeight()//element.clientHeight
+			if (element.scrollTop > 0) 
+				return true
+			
+			element.scrollTop += 1
+			if (element.scrollLeft == 0)
+				return false
+			
+			element.scrollTop -= 1
+			return true
 		}
 	}
 }
