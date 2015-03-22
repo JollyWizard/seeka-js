@@ -35,5 +35,18 @@ function detectOverflow(element) {
 			element.scrollTop -= 1
 			return true
 		}
+	,	contentWidth : function() {
+			var css = getComputedStyle(element)
+			var width = parseInt(css.width,10)
+			var padding = parseInt(css.paddingRight,10)
+			
+			return element.scrollWidth - padding > width
+		}	
+	,	contentHeight : function() {
+			var css = getComputedStyle(element).height
+			css = parseInt(css,10)
+			
+			return element.scrollHeight > css
+		}
 	}
 }

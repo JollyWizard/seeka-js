@@ -102,6 +102,11 @@
 		if (of.width()) {
 			$(element).css('border-bottom-color', 'red')
 		}
+		if (of.contentWidth()) {
+			$(element).css('border-top-color', 'green')
+		}
+		if (of.contentHeight())
+			$(element).css('border-right-color', 'green')
 		
 		element.scrollTop = 0;
 		element.scrollLeft = 0;
