@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><head>
+
+<title>Scroll Padding Type Test</title>
+
+<!--lib-->
+<script src='https://code.jquery.com/jquery-2.1.3.js'></script>
+<!--/lib-->
+
+<!--source-->
+<script src='../scripts/seeka/detectTrailingScrollPadding.js' ></script>
+<!--/source-->
+
+<style>
+body {
+	background-color:azure;
+}
+
+.wrapper {
+	visibility: hidden;
+}
+
+.test {
+	display:inline-block;
+	border:thin solid red;
+	width:0em;
+	overflow:hidden;
+}
+</style>
+
+</head><body>
+Output on console verifies status for the current browser.
+
+<div class='wrapper'>
+	<div class='test'>M</div>
+</div>
+
+<script>
+	
+	$(".test").each(function (index, element) {
+		var data = {}
+		
+		data.clientWidth = element.clientWidth
+		data.scrollWidth = element.scrollWidth
+		
+		//$(element).css('padding-left', "1em")
+		$(element).css('padding-right', "1em")
+		
+		data.post = {}
+		data.post.scrollWidth = element.scrollWidth
+		data.post.clientWidth = element.clientWidth
+		data.post.diff = data.post.scrollWidth != data.scrollWidth
+		console.log(data)
+		console.log(data.post)
+	})
+</script>
+
+</body></html>
