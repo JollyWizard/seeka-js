@@ -22,37 +22,22 @@ body {
 
 .test {
 	display:inline-block;
-	border:thin solid red;
 	width:0em;
 	overflow:hidden;
+}
+
+.output {
+	color:darkred;
+	border: 2px solid blue;
+	padding:0em .5em;
 }
 </style>
 
 </head><body>
-Output on console verifies status for the current browser.
-
-<div class='wrapper'>
-	<div class='test'>M</div>
-</div>
+Browser appends trailing padding to scroll content: <span class='output'></span>
 
 <script>
-	
-	$(".test").each(function (index, element) {
-		var data = {}
-		
-		data.clientWidth = element.clientWidth
-		data.scrollWidth = element.scrollWidth
-		
-		//$(element).css('padding-left', "1em")
-		$(element).css('padding-right', "1em")
-		
-		data.post = {}
-		data.post.scrollWidth = element.scrollWidth
-		data.post.clientWidth = element.clientWidth
-		data.post.diff = data.post.scrollWidth != data.scrollWidth
-		console.log(data)
-		console.log(data.post)
-	})
+	$('.output').text(detectTrailingScrollPadding())
 </script>
 
 </body></html>
