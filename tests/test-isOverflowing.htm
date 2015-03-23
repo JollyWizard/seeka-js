@@ -9,6 +9,7 @@
 
 <!--source-->
 <script src='../scripts/seeka/detectOverflow.js' ></script>
+<script src='../scripts/seeka/detectTrailingScrollPadding.js' ></script>
 <!--/source-->
 
 <style>
@@ -46,6 +47,15 @@
 </style>
 
 </head><body>
+
+<div class='overview'>
+<p>Scrollable dimensions are displayed in 
+	<span style='color:red'>red</span>
+</p>
+<p>Content that overflows into padding, but is not necessarily scrollable, is displayed in 
+	<span style='color:green'>green</span>
+</p>
+</div>
 
 <div class='test control'></div>
 
