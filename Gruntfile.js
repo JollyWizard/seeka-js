@@ -1,14 +1,11 @@
 module.exports = function(grunt) {
 
-	var src = 'scripts/seeka/'
-
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json')
 	,	concat: {
 			'bin/seeka.js': [
-				src + 'detectOverflow.js'
-			,	src + 'detectTrailingScrollPadding.js'
+				'scripts/seeka/**'
 			]
 		}
 	});
