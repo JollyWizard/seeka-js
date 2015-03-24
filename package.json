@@ -1,0 +1,9 @@
+{
+  "name": "seeka",
+  "version": "0.0.1",
+  "description": "Low level scroll / overflow API.",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1"
+  }
+}
